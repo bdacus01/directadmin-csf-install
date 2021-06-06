@@ -97,7 +97,7 @@ csf_reconfig() {
     perl -pi -e 's/^RESTRICT_SYSLOG = "0"/RESTRICT_SYSLOG = "3"/' "${csf_conf}"
 
     printf "\n***\n"
-    SSHD_PORT=$(grep "^Port" /etc/ssh/sshd_config | tail -1 | awk '{print $2}')
+    SSHD_PORT=$(grep "^Port" /etc/ssh/sshd_config | tail -2 | awk '{print $2}')
     [ -n "${SSHD_PORT}" ] || SSHD_PORT=22
     printf "Your SSH PORT is (%s).\nIt should be listed below as allowed.\n" "${SSHD_PORT}"
 
@@ -164,7 +164,7 @@ do_install "brute_force_notice_ip.sh" "http://files.delaintech.com/csf/brute_for
 
 csf_reconfig
 da_reconfig
-printf "Restarting Directadmin\n"
+printf "\n***\nRestarting Directadmin\n"
 service directadmin restart
-printf "Done.\n***\nScripts installed!\n***\nInstallation complete!"
+printf "Done.\n***\nScripts installed!\n***\nInstallation complete!\n"
 exit 0
