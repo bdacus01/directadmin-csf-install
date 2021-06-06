@@ -1,10 +1,10 @@
 #!/bin/sh
 #######################################################################
 # Script Name: block_ip
-# Version: 2.4
-# Description: Directadmin script for blocking of ips and reports to 
+# Version: 2.5
+# Description: Directadmin script for blocking of ips and reports to
 # AbuseIPDB with csf firewall.
-# Last Modify Date: 01062021
+# Last Modify Date: 06062021
 # Author:Brent Dacus
 # Email:brent[at]thedacus[dot]net
 #######################################################################
@@ -14,7 +14,7 @@ bf=/etc/blocked_ips
 ef=/etc/whitelist_ips
 caf=/etc/csf/csf.allow
 cdf=/etc/csf/csf.deny
-abuseipdb_key=c13866e213ef23a0fbf2c57cd6474d63477dda0767a2a088249de1151f269157c48ab70a4dc0c531
+abuseipdb_key=0cddfe70a4a30f99e43dc693f3a5d29e0be9db6e270d5a209fee18880084d509811ffffcafcd8b77
 #######################################################################
 #                       Main                                          #
 #######################################################################
@@ -22,47 +22,47 @@ abuseipdb_key=c13866e213ef23a0fbf2c57cd6474d63477dda0767a2a088249de1151f269157c4
 if [ "${1}" ]; then
   ip="${1}"
 fi
-
+### Do we have an IP to block?
 if [ -z "${ip}" ]; then
-  echo "We have no IP to block! Exiting..."
+  printf "We have no IP to block! Exiting.\n"
   exit 1
 fi
 ### Do we have a block file?
 if [ ! -e "${bf}" ]; then
-  echo "Cannot find $bf file"
+  printf "Cannot find %s file.\n" "${bf}"
   exit 2
 fi
 ### Do we have an whitelist file?
 if [ ! -e "${ef}" ]; then
-  echo "Cannot find ${ef} file"
+  printf "Cannot find %s file\n" "${ef}"
   exit 2
 fi
 ### Make sure IP is not in DA whitelist file.
-count=$(egrep -c "${ip}(=|$)" ${ef})
+count=$(grep -E -c "${ip}(=|$)" ${ef})
 if [ "$count" -gt 0 ]; then
-  echo "The $ip is in the whitelist (${ef}). Not blocking."
+  printf "The %s is in the whitelist (%s).\nNot blocking.\n" "${ip}" "${ef}"
   exit 3
 fi
 ### Make sure it's not already in blocked file.
-count=$(egrep -c "${ip}(=|$)" ${bf})
+count=$(grep -E -c "${ip}(=|$)" ${bf})
 if [ "$count" -gt 0 ]; then
-  echo "The $ip already exists in (${bf}). Not blocking."
+  printf "The %s already exists in (%s).\nNot blocking.\n" "${ip}" "${bf}"
   exit 3
 fi
 # Is the IP whitelisted permamently by CSF?
-count=$(egrep -c "${ip}(=|$)" "${caf}")
+count=$(grep -E -c "${ip}(=|$)" "${caf}")
 if [ "${count}" -gt 0 ]; then
-    echo "The ${ip} already exists in (${caf}). Not blocking."
-    exit 4
+  printf "The %s already exists in (%s).\nNot blocking.\n" "${ip}" "${caf}"
+  exit 4
 fi
 # Is the IP whitelisted permamently by CSF?
-count=$(egrep -c "${ip}(=|$)" "${cdf}")
+count=$(grep -E -c "${ip}(=|$)" "${cdf}")
 if [ "${count}" -gt 0 ]; then
-    echo "The ${ip} already exists in (${cdf}). Not blocking."
-    exit 4
+  printf "The %s already exists in (%s).\nNot blocking.\n" "${ip}" "${cdf}"
+  exit 4
 fi
 ### Add it into the blocked file.
-echo "Blocking ${ip} to Firewall now."
+printf "Blocking %s to Firewall now.\n" "${ip}"
 echo "$ip=dateblocked=$(date +%s)" >>"${bf}"
 ### Add it to the CSF deny file.
 csf -d "${ip}" "Blocked and sent to AbuseIPDB."

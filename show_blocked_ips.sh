@@ -1,9 +1,9 @@
 #!/bin/sh
 #######################################################################
 # Script Name: show_blocked_ips
-# Version: 1.3
+# Version: 2.5
 # Description: Script to show blocked IP address by Directadmin BFM
-# Last Modify Date: 01062021
+# Last Modify Date: 06062021
 # Author:Directadmin
 # Email:brent[at]thedacus[dot]net
 #######################################################################
@@ -13,7 +13,7 @@ bf=/etc/blocked_ips
 #######################################################################
 #                       Main                                          #
 #######################################################################
-echo "havedata=1"
+printf "havedata=1"
 cat $bf
 
 exit 0

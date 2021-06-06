@@ -1,19 +1,22 @@
 #!/bin/sh
 #######################################################################
 # Script Name: update.sh
-# Version: 2.4
+# Version: 2.5
 # Description: Directadmin script for blocking of ips and reports to 
 # AbuseIPDB with csf firewall.
-# Last Modify Date: 01062021
+# Last Modify Date: 06062021
 # Author(s): Alex Grebenschikov and Brent Dacus
 # Email:brent[at]thedacus[dot]net
 #######################################################################
-
+#                       Variables                                     #
+#######################################################################
 csf="/usr/sbin/csf"
 dir="/usr/local/directadmin/scripts/custom/"
-
+#######################################################################
+#                       Main                                          #
+#######################################################################
 do_update() {
-    echo "[OK] Updating in ${dir}${1}"
+    printf "Updating in %s %s\n" "${dir}" "${1}"
     if [ -f "${1}" ]; then
         cp -f "${1}" "${1}.bak"
         chmod 600 "${1}.bak"
@@ -24,14 +27,14 @@ do_update() {
 }
 
 die() {
-    echo "$1" echo ""
+    echo "$1" printf ""
     exit "$2"
 }
 
 [ -x "${csf}" ] || csf_install
 
-[ -x "/usr/local/directadmin/directadmin" ] || die "[ERROR] Directadmin not found! You should install it first!" 1
-cd "${dir}" || die "[ERROR] Could not change directory to ${dir}" 1
+[ -x "/usr/local/directadmin/directadmin" ] || die "Directadmin not found!\nYou should install it first!\n" 1
+cd "${dir}" || die "Could not change directory to %s.\n" ${dir} 1
 
 do_install "block_ip.sh" "http://files.delaintech.com/csf/block_ip.sh"
 do_install "unblock_ip.sh" "http://files.delaintech.com/csf/unblock_ip.sh"
@@ -41,8 +44,5 @@ do_install "brute_force_notice_ip.sh" "http://files.delaintech.com/csf/brute_for
 [ -f "/etc/blocked_ips" ] || touch /etc/blocked_ips
 [ -f "/etc/whitelist_ips" ] || touch /etc/whitelist_ips
 
-echo "[OK] Scripts Updated!"
-echo ""
-echo "Upgrade complete!"
-echo ""
+printf "Scripts Updated!\n***\nUpgrade complete!\n***\n"
 exit 0
