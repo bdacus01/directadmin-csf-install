@@ -44,7 +44,7 @@ fi
 if [ "${count}" -gt "0" ]; then
   de "[debug] the ip ${ip} was found as blocked in pf"
   ### Remove it from the CSF deny file.
-csf -dr "${ip}" "Unblocked and deleted from AbuseIPDB."
+csf -dr "${ip}"
   unblocked=1
 fi
 
