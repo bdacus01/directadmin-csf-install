@@ -1,11 +1,11 @@
 #!/bin/sh
 #######################################################################
-#Script Name: brute_force_notice
-#Version: 2.5
-#Description: Directadmin BF email notice for auto blocking of ips
-#Last Modify Date: 01062021
-#Author:Brent Dacus
-#Email:brent[at]thedacus[dot]net
+# Script Name: brute_force_notice
+# Version: 2.5
+# Description: Directadmin BF email notice for auto blocking of ips
+# Last Modify Date: 01062021
+# Author:Brent Dacus
+# Email:brent[at]thedacus[dot]net
 #######################################################################
 #                       Variables                                     #
 #######################################################################

@@ -1,21 +1,13 @@
-#!/usr/bin/env bash
-# ============================================================
-# Written by Alex Grebenschikov for www.plugins-da.net
-# Maintained by Brent Dacus for himself
-# ============================================================
-# Version: 0.1.5 Tue May 28 03:07:59 +07 2019
-# Last modified: Tue May 28 03:07:59 +07 2019
-# ============================================================
-# Version: 0.1.4 Thu Nov 29 15:25:57 +07 2018
-# Changes: Corrected shebang for better compatibilities
-# ============================================================
-# Versions:
-#           - 0.1.4 Tue Jun  4 13:38:56 +07 2021
-#           - 0.1.3 Tue Jun 12 13:38:56 +07 2018
-#           - 0.1.2 Wed Apr 11 12:40:40 +07 2018
-#           - 0.1.1 Sat Oct  7 12:23:43 +07 2017
-# ============================================================
-test
+#!/bin/sh
+#######################################################################
+# Script Name: install.sh
+# Version: 2.4
+# Description: Directadmin script for blocking of ips and reports to 
+# AbuseIPDB with csf firewall.
+# Last Modify Date: 01062021
+# Author(s): Alex Grebenschikov and Brent Dacus
+# Email:brent[at]thedacus[dot]net
+#######################################################################
 CSF="/usr/sbin/csf"
 DIR="/usr/local/directadmin/scripts/custom/"
 DA_CONF="/usr/local/directadmin/conf/directadmin.conf"

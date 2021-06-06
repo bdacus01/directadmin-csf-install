@@ -1,24 +1,19 @@
-#!/usr/bin/env bash
-# ============================================================
-# Written by Alex S Grebenschikov for www.plugins-da.net
-# ============================================================
-# Version: 0.1.5 Tue May 28 02:55:59 +07 2019
-# Last modified: Tue May 28 02:55:59 +07 2019
-# ============================================================
-# Version: 0.1.4 Thu Nov 29 15:25:57 +07 2018
-# Changes: Corrected shebang for better compatibilities
-# ============================================================
-# Versions:
-#           - 0.1.3 Tue Jun 12 13:38:56 +07 2018
-#           - 0.1.2 Wed Apr 11 12:40:40 +07 2018
-#           - 0.1.1 Sat Oct  7 12:23:43 +07 2017
-# ============================================================
+#!/bin/sh
+#######################################################################
+# Script Name: update.sh
+# Version: 2.4
+# Description: Directadmin script for blocking of ips and reports to 
+# AbuseIPDB with csf firewall.
+# Last Modify Date: 01062021
+# Author(s): Alex Grebenschikov and Brent Dacus
+# Email:brent[at]thedacus[dot]net
+#######################################################################
 
-CSF="/usr/sbin/csf"
-DIR="/usr/local/directadmin/scripts/custom/"
+csf="/usr/sbin/csf"
+dir="/usr/local/directadmin/scripts/custom/"
 
 do_update() {
-    echo "[OK] Updating in ${DIR}${1}"
+    echo "[OK] Updating in ${dir}${1}"
     if [ -f "${1}" ]; then
         cp -f "${1}" "${1}.bak"
         chmod 600 "${1}.bak"
@@ -33,10 +28,10 @@ die() {
     exit "$2"
 }
 
-[ -x "${CSF}" ] || csf_install
+[ -x "${csf}" ] || csf_install
 
 [ -x "/usr/local/directadmin/directadmin" ] || die "[ERROR] Directadmin not found! You should install it first!" 1
-cd "${DIR}" || die "[ERROR] Could not change directory to ${DIR}" 1
+cd "${dir}" || die "[ERROR] Could not change directory to ${dir}" 1
 
 do_install "block_ip.sh" "http://files.delaintech.com/csf/block_ip.sh"
 do_install "unblock_ip.sh" "http://files.delaintech.com/csf/unblock_ip.sh"

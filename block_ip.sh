@@ -1,12 +1,12 @@
 #!/bin/sh
 #######################################################################
-#Script Name: block_ip
-#Version: 2.4
-#Description: Directadmin script for blocking of ips and reports to 
-#AbuseIPDB with csf firewall.
-#Last Modify Date: 01062021
-#Author:Brent Dacus
-#Email:brent[at]thedacus[dot]net
+# Script Name: block_ip
+# Version: 2.4
+# Description: Directadmin script for blocking of ips and reports to 
+# AbuseIPDB with csf firewall.
+# Last Modify Date: 01062021
+# Author:Brent Dacus
+# Email:brent[at]thedacus[dot]net
 #######################################################################
 #                       Variables                                     #
 #######################################################################
