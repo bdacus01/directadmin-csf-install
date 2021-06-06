@@ -27,7 +27,7 @@ do_update() {
 }
 
 die() {
-    echo "$1" printf ""
+    printf "%s \n***\n" "${1}"
     exit "$2"
 }
 
