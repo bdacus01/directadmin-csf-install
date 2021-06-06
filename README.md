@@ -1,6 +1,10 @@
 # directadmin-csf-install
 Installer for CSF firewall for directadmin.
 
+# Version Information
+Version: 2.5
+Update date: 06062021
+
 # Installation guide
 
 ```
