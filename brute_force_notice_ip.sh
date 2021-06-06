@@ -15,9 +15,10 @@ server=$(hostname -s)
 domain=$(hostname -d)
 #where you want the email to be sent to
 email=tech@delainhosting.com
-abuseipdb_key=c13866e213ef23a0fbf2c57cd6474d63477dda0767a2a088249de1151f269157c48ab70a4dc0c531
+# Your API key for AbuseIPDB
+abuseipdb_key=0cddfe70a4a30f99e43dc693f3a5d29e0be9db6e270d5a209fee18880084d509811ffffcafcd8b77
 #######################################################################
-#                       Main                                          #
+#                  Main Call to AbuseIPDB API                         #
 #######################################################################
 abuserpt=$(curl -G https://api.abuseipdb.com/api/v2/check \
   --data-urlencode "ipAddress=${value}" \
@@ -26,7 +27,7 @@ abuserpt=$(curl -G https://api.abuseipdb.com/api/v2/check \
   -H "Accept: application/json" | jq '.data' | tr -d '[]''\,''{}''\"')
 
 #######################################################################
-#                       Main                                          #
+#                       Main Email body                               #
 #######################################################################
 if [ "${nofiy_by_email}" -gt 0 ]; then
   echo "The ip $value has been blocked for making $count failed login attempts at $domain.

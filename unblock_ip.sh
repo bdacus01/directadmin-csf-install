@@ -23,6 +23,7 @@ de() {
 #######################################################################
 #                       Main                                          #
 #######################################################################
+### To add IP on cmd line.
 if [ "${1}" ]; then
   ip="${1}"
 fi
@@ -42,12 +43,13 @@ fi
 ### Remove blocked ip from pf table but leave all others.
 if [ "${count}" -gt "0" ]; then
   de "[debug] the ip ${ip} was found as blocked in pf"
-  /sbin/pfctl -t bruteforce -T delete "${ip}"
+  ### Remove it from the CSF deny file.
+csf -dr "${ip}" "Unblocked and deleted from AbuseIPDB."
   unblocked=1
 fi
 
 if [ "${unblocked}" -gt "0" ]; then
-  echo -n "the ip ${ip} was unblocked"
+  echo "The ip ${ip} was unblocked"
   ### Remove blocked ip from AbuseIPDB.
   curl -X DELETE https://api.abuseipdb.com/api/v2/clear-address \
     --data-urlencode "ipAddress=${ip}" \
@@ -55,7 +57,7 @@ if [ "${unblocked}" -gt "0" ]; then
     -H "Accept: application/json" >>/dev/null 2>&1
   exit 0
 else
-  echo -n "the ip ${ip} is not blocked. exiting..."
+  echo "The ip ${ip} is not blocked. exiting..."
   exit 3
 fi
 

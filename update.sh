@@ -38,10 +38,10 @@ die() {
 [ -x "/usr/local/directadmin/directadmin" ] || die "[ERROR] Directadmin not found! You should install it first!" 1
 cd "${DIR}" || die "[ERROR] Could not change directory to ${DIR}" 1
 
-do_update "block_ip.sh" "http://files.plugins-da.net/dl/csf_block_ip.sh.txt"
-do_update "unblock_ip.sh" "http://files.plugins-da.net/dl/csf_unblock_ip.sh.txt"
-do_update "show_blocked_ips.sh" "http://files.plugins-da.net/dl/csf_show_blocked_ips.sh.txt"
-do_update "brute_force_notice_ip.sh" "http://files.directadmin.com/services/all/brute_force_notice_ip.sh"
+do_install "block_ip.sh" "http://files.delaintech.com/csf/block_ip.sh"
+do_install "unblock_ip.sh" "http://files.delaintech.com/csf/unblock_ip.sh"
+do_install "show_blocked_ips.sh" "http://files.delaintech.com/csf/show_blocked_ips.sh"
+do_install "brute_force_notice_ip.sh" "http://files.delaintech.com/csf/brute_force_notice_ip.sh"
 
 [ -f "/etc/blocked_ips" ] || touch /etc/blocked_ips
 [ -f "/etc/whitelist_ips" ] || touch /etc/whitelist_ips

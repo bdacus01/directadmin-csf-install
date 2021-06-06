@@ -2,7 +2,8 @@
 #######################################################################
 #Script Name: block_ip
 #Version: 2.4
-#Description: Directadmin script for blocking of ips and reports to #AbuseIPDB.
+#Description: Directadmin script for blocking of ips and reports to 
+#AbuseIPDB with csf firewall.
 #Last Modify Date: 01062021
 #Author:Brent Dacus
 #Email:brent[at]thedacus[dot]net
@@ -17,6 +18,7 @@ abuseipdb_key=c13866e213ef23a0fbf2c57cd6474d63477dda0767a2a088249de1151f269157c4
 #######################################################################
 #                       Main                                          #
 #######################################################################
+### To add IP on cmd line.
 if [ "${1}" ]; then
   ip="${1}"
 fi
@@ -30,15 +32,15 @@ if [ ! -e "${bf}" ]; then
   echo "Cannot find $bf file"
   exit 2
 fi
-### Do we have an exempt file?
+### Do we have an whitelist file?
 if [ ! -e "${ef}" ]; then
   echo "Cannot find ${ef} file"
   exit 2
 fi
-### Make sure it's not in DA exempt file.
+### Make sure IP is not in DA whitelist file.
 count=$(egrep -c "${ip}(=|$)" ${ef})
 if [ "$count" -gt 0 ]; then
-  echo "The $ip is in the exempt list (${ef}). Not blocking."
+  echo "The $ip is in the whitelist (${ef}). Not blocking."
   exit 3
 fi
 ### Make sure it's not already in blocked file.
@@ -62,7 +64,7 @@ fi
 ### Add it into the blocked file.
 echo "Blocking ${ip} to Firewall now."
 echo "$ip=dateblocked=$(date +%s)" >>"${bf}"
-### Add it into the bruteforce pf table.
+### Add it to the CSF deny file.
 csf -d "${ip}" "Blocked and sent to AbuseIPDB."
 ### Add it into the abuseIPDB.
 curl https://api.abuseipdb.com/api/v2/report \
