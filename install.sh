@@ -138,8 +138,8 @@ da_reconfig() {
     da_set_conf exempt_local_block 1
     da_set_conf clear_brute_log_time 1
     da_set_conf clear_brute_log_entry_time 1
-    da_set_conf unblock_brute_ip_time 0   #Never
-    da_set_conf clear_blacklist_ip_time 0 #Never
+    da_set_conf unblock_brute_ip_time 0
+    da_set_conf clear_blacklist_ip_time 0
     da_set_conf ip_blacklist /etc/blocked_ips
     da_set_conf ip_whitelist /etc/whitelist_ips
 }
